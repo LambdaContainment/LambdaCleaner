@@ -6,5 +6,5 @@ public class Config : IConfig
 {
     public bool IsEnabled { get; set; } = true;
     public bool Debug  { get; set; } = false;
-    public float CleanLoopInterval { get; set; } = 120f;
+    public static float CleanLoopInterval { get; set; } = 120f;
 }

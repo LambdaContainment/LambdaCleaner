@@ -8,7 +8,13 @@ namespace LambdaCleaner;
 public class PeriodicalCleanup
 {
     public readonly LambdaCleaner plugin;
-    public PeriodicalCleanup(LambdaCleaner plugin) => this.plugin = plugin;
+    public CoroutineHandle cleanupCoroutine;
+
+    public PeriodicalCleanup(LambdaCleaner plugin, CoroutineHandle cleanupCoroutine)
+    {
+        this.plugin = plugin;
+        this.cleanupCoroutine = cleanupCoroutine;
+    }
     
     public IEnumerator<float> RunCleanupLoop(float interval)
     {
