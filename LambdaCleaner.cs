@@ -26,7 +26,7 @@ public class LambdaCleaner : Plugin<Config>
     {
         try
         {
-            cleanupCoroutine = Timing.RunCoroutine(cleaner.RunCleanupLoop(5f));
+            cleanupCoroutine = Timing.RunCoroutine(cleaner.RunCleanupLoop(Config.CleanLoopInterval));
         }
         catch (Exception e)
         {
