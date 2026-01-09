@@ -1,19 +1,29 @@
 ﻿using Exiled.API.Features;
+using HarmonyLib;
 using MEC;
 
 namespace LambdaCleaner;
 
 public class EventManager
 {
-    private LambdaCleaner plugin;
-    public EventManager(LambdaCleaner plugin) => this.plugin = plugin;
-    private static PeriodicalCleanup cleaner;
+    private readonly LambdaCleaner plugin;
+    private readonly PeriodicalCleanup cleaner;
+
+    public EventManager(LambdaCleaner plugin)
+    {
+        this.plugin = plugin;
+        this.cleaner = new PeriodicalCleanup(plugin);
+    }
 
     public void OnRoundStart()
     {
         try
         {
-            plugin.CleanupCoroutineHandle = Timing.RunCoroutine(cleaner.RunCleanupLoop(Config.CleanLoopInterval));
+            plugin.CleanupCoroutineHandle = Timing.RunCoroutine(
+                cleaner.RunCleanupLoop(
+                    plugin.Config.CleanLoopInterval
+                )
+            );
         }
         catch (Exception e)
         {
@@ -23,6 +33,9 @@ public class EventManager
 
     public void OnRoundRestart()
     {
-        Timing.KillCoroutines(cleaner.cleanupCoroutine);
+        if (plugin.CleanupCoroutineHandle.IsRunning)
+        {
+            Timing.KillCoroutines(plugin.CleanupCoroutineHandle);
+        }
     }
 }
