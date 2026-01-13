@@ -6,6 +6,7 @@ namespace LambdaCleaner;
 public class LambdaCleaner : Plugin<Config>
 {
     public override string Name => "LambdaCleaner";
+    public override string Author => "WinG4merBR";
     public override Version Version => new Version(1, 0, 0);
     public CoroutineHandle CleanupCoroutineHandle;
     private EventManager EventManager;

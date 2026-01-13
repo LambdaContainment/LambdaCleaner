@@ -1,7 +1,7 @@
 ﻿using Exiled.API.Features;
 using HarmonyLib;
 using MEC;
-
+ 
 namespace LambdaCleaner;
 
 public class EventManager
@@ -12,7 +12,7 @@ public class EventManager
     public EventManager(LambdaCleaner plugin)
     {
         this.plugin = plugin;
-        this.cleaner = new PeriodicalCleanup(plugin);
+        cleaner = new PeriodicalCleanup(plugin);
     }
 
     public void OnRoundStart()
